@@ -90,4 +90,7 @@ Note: all the contributions need to follow PSR-12 and add unit testing.
 
 MIT License
 
-## 
+## Made by
+
+- [Seth Phat](https://github.com/sethsandaru)
+- (... contributors?)
