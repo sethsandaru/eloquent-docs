@@ -1,0 +1,50 @@
+{
+    "name": "sethphat/eloquent-docs",
+    "description": "Generate PHPDoc scope for your Eloquent models",
+    "type": "library",
+    "require": {
+        "php": "^8",
+        "laravel/framework": "^9|^8"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.20",
+        "mockery/mockery": "^1.5",
+        "phpunit/phpunit": "^9.5",
+        "orchestra/testbench": "^7.6",
+        "phpunit/php-code-coverage": "^9.2",
+        "doctrine/dbal": "^3.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Seth Phat",
+            "email": "phattranminh96@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SethPhat\\EloquentDocs\\EloquentDocsServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SethPhat\\EloquentDocs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SethPhat\\EloquentDocs\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test-coverage": [
+            "@php vendor/bin/phpunit --coverage-clover coverage.xml"
+        ],
+        "test": [
+            "@php vendor/bin/phpunit"
+        ]
+    },
+    "minimum-stability": "stable"
+}
