@@ -1,4 +1,4 @@
-# Eloquent phpDoc Generators
+# Laravel Eloquent phpDoc Generator
 
 Quickly generate the phpDoc for your Eloquent Model. Make your Eloquent super friendly with IDEs (eg PHPStorm).
 
@@ -8,7 +8,13 @@ And maintaining the phpDoc of your models don't have to be a pain in the ass, sh
 - Fast
 - Reliable
 
-And, welcome to Eloquent phpDoc Generator, which going to help you to achive the 3 points above 🎉
+And, welcome to Eloquent phpDoc Generator, which going to help you to achieve the 3 points above 🎉
+
+## What will Eloquent phpDoc Generator will generate?
+- Table name
+- Table columns (with types)
+- Model relationships
+- Model attributes/accessors
 
 ## Requirements
 - PHP 8+ (yes it is 2022, PHP8 is superfast)
@@ -72,6 +78,13 @@ Thank you for using SethPhat/EloquentDocs!
 
 Note: if you haven't installed `doctrine/dbal` as your dev-dependency, 
 then once you trigger the command for the first time, it will help you to install the needful dependency
+
+## Best practices
+- Use `$casts` in your model, in order to help EloquentPhpDoc generate better types for you (array, Carbon,...)
+- For `get*Attribute` accessor, always declare the return type
+
+Note: Eloquent new `Attribute` class utilize the data via Closure, thus we can't declare any return type for any attributes.
+For this case, EloquentPhpDoc will always return `mixed`
 
 ## Release logs
 - v1.0.0
