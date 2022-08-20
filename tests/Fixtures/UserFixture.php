@@ -9,6 +9,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserFixture extends Model
 {
+    protected $table = 'users';
+
+    protected $casts = [
+        'payload' => 'array',
+        'additional_payload' => 'object',
+        'external_data' => 'collection',
+    ];
+
     public function emails(): HasMany
     {
         return $this->hasMany(EmailFixture::class);
@@ -53,6 +61,7 @@ class UserFixture extends Model
     {
         return Attribute::make(
             get: fn ($value) => ucfirst($value),
+            set: fn ($value) => $this->value = $value,
         );
     }
 

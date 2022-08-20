@@ -1,0 +1,35 @@
+name: Build and test [SQLite]
+on:
+  pull_request:
+    branches:
+      - 'main'
+    types: [ opened, synchronize, reopened, ready_for_review ]
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      -   uses: actions/checkout@v2
+          if: success()
+
+      -   name: Setup PHP with coverage driver
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: '8.0.16'
+            coverage: pcov
+
+      -   name: Setup
+          if: success()
+          run: |
+            php -v
+            composer install --no-interaction
+            touch database.sqlite
+
+      -   name: PHPUnit tests
+          if: success()
+          run: |
+            composer test

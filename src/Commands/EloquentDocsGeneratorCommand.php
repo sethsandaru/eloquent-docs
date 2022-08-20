@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
-use League\Flysystem\Local\LocalFilesystemAdapter;
 use ReflectionClass;
 use RuntimeException;
 use SethPhat\EloquentDocs\Services\GeneratePhpDocService;
@@ -52,7 +51,10 @@ class EloquentDocsGeneratorCommand extends Command
             ->generate();
 
         $this->info('====== Start PHPDOC scope of ' . $modelClass);
-        $this->info($generatedDocs);
+        $lines = explode("\n", $generatedDocs);
+        foreach ($lines as $line) {
+            $this->info($line);
+        }
         $this->info('====== End PHPDOC scope of ' . $modelClass);
 
         if ($shouldWrite) {

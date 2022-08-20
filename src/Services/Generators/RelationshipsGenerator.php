@@ -37,10 +37,10 @@ class RelationshipsGenerator implements PhpDocGeneratorContract
             $isManyRelation = Str::contains($relationship['returnType'], 'Many', true);
 
             $phpDocStr .= sprintf(
-                '%s* @property-read %s%s|null %s',
+                '%s* @property-read %s%s %s',
                 "\n",
                 '\\' .$relationship['related'],
-                $isManyRelation ? '[]|\Illuminate\Support\Collection' : '',
+                $isManyRelation ? '[]|\Illuminate\Support\Collection' : '|null',
                 '$' . $relationship['name']
             );
         }
