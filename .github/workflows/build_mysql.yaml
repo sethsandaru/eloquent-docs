@@ -29,6 +29,8 @@ jobs:
             composer install --no-interaction
             touch coverage.xml
             mv .env.mysql .env
+            sudo service mysql start
+            mysql -uroot -proot -e "CREATE DATABASE eloquentdocs;"
 
       -   name: PHPUnit tests with coverage
           if: success()
