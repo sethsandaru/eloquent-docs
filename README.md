@@ -1,5 +1,8 @@
 # Laravel Eloquent phpDoc Generator
 
+[![codecov](https://codecov.io/gh/sethsandaru/eloquent-docs/branch/main/graph/badge.svg?token=7KWW0SKF9P)](https://codecov.io/gh/sethsandaru/eloquent-docs)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/sethsandaru/eloquent-docs)
+
 Quickly generate the phpDoc for your Eloquent Model. Make your Eloquent super friendly with IDEs (eg PHPStorm).
 
 And maintaining the phpDoc of your models don't have to be a pain in the ass, should be:
