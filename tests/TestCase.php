@@ -25,15 +25,36 @@ abstract class TestCase extends BaseTestCase
         $dbConnection = env('DB_CONNECTION');
         $app['config']->set('database.default', $dbConnection);
 
-        $app['config']->set('database.connections.' . $dbConnection, [
-            'driver' => $dbConnection,
-            'host' => env('DB_HOST'),
-            'port' => env('DB_PORT',3307),
-            'username' => env('DB_USERNAME'),
-            'password' => env('DB_PASSWORD'),
-            'database' => env('DB_DATABASE'),
-            'prefix' => '',
-        ]);
+        if ($dbConnection === 'mysql') {
+            $app['config']->set('database.connections.mysql', [
+                'driver' => $dbConnection,
+                'host' => env('DB_HOST'),
+                'port' => env('DB_PORT', 3307),
+                'username' => env('DB_USERNAME'),
+                'password' => env('DB_PASSWORD'),
+                'database' => env('DB_DATABASE'),
+                'prefix' => '',
+            ]);
+        } elseif ($dbConnection === 'pgsql') {
+            $app['config']->set('database.connections.pgsql', [
+                'driver' => $dbConnection,
+                'host' => env('DB_HOST'),
+                'port' => env('DB_PORT', 3307),
+                'username' => env('DB_USERNAME'),
+                'password' => env('DB_PASSWORD'),
+                'database' => env('DB_DATABASE'),
+                'prefix' => '',
+                'schema' => 'public',
+                'sslmode' => 'prefer',
+            ]);
+        } else {
+            $app['config']->set('database.connections.sqlite', [
+                'driver' => 'sqlite',
+                'database' => env('DB_DATABASE', database_path('database.sqlite')),
+                'prefix' => '',
+                'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+            ]);
+        }
     }
 
     protected function defineDatabaseMigrations()

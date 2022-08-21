@@ -63,11 +63,11 @@ class ColumnsGenerator implements PhpDocGeneratorContract
 
             'char', 'string', 'varchar',
             'text', 'tinytext', 'mediumtext',
-            'longtext', 'enum', 'binary', 'varbinary', 'set' => 'string',
+            'longtext', 'enum', 'binary',
+            'varbinary', 'set', 'json', 'jsonb' => $this->getJsonCastType($columm->getName()),
+            // ^ because sqlite doesn't have json, they will use `text` but Eloquent can parse text to particular cast
 
             // would be string if you don't add 'casts', default to array
-            'json', 'jsonb' => $this->getJsonCastType($columm->getName()),
-
             default => 'mixed',
         };
 
