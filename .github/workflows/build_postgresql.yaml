@@ -30,6 +30,14 @@ jobs:
             touch coverage.xml
             mv .env.postgresql .env
 
+      - uses: harmon758/postgresql-action@v1
+        name: Setup postgreSQL
+        with:
+          postgresql version: '11'
+          postgresql user: root
+          postgresql password: root
+          postgresql db: eloquentdocs
+
       -   name: PHPUnit tests
           if: success()
           run: |
