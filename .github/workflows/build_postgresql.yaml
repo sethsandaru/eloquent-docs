@@ -11,6 +11,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      postgresql:
+        image: postgres:14
+        env:
+          POSTGRES_DB: eloquentdocs
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root
+        ports:
+          - 5432:5432
+        options: --health-cmd=pg_isready --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       -   uses: actions/checkout@v2
@@ -20,7 +30,8 @@ jobs:
           uses: shivammathur/setup-php@v2
           with:
             php-version: '8.1'
-            coverage: pcov
+            extensions: pdo, pdo_pgsql
+            coverage: none
 
       -   name: Setup
           if: success()
@@ -29,14 +40,6 @@ jobs:
             composer install --no-interaction
             touch coverage.xml
             mv .env.postgresql .env
-
-      - uses: harmon758/postgresql-action@v1
-        name: Setup postgreSQL
-        with:
-          postgresql version: '11'
-          postgresql user: root
-          postgresql password: root
-          postgresql db: eloquentdocs
 
       -   name: PHPUnit tests
           if: success()
