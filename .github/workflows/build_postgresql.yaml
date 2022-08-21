@@ -19,7 +19,7 @@ jobs:
       -   name: Setup PHP with coverage driver
           uses: shivammathur/setup-php@v2
           with:
-            php-version: '8.0.16'
+            php-version: '8.1'
             coverage: pcov
 
       -   name: Setup
@@ -28,6 +28,7 @@ jobs:
             php -v
             composer install --no-interaction
             touch coverage.xml
+            mv .env.postgresql .env
 
       -   name: PHPUnit tests
           if: success()
