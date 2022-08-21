@@ -49,6 +49,9 @@ class EloquentDocsGeneratorCommandTest extends TestCase
 
         $this->assertStringContainsString('Table: emails', $fileContent);
         $this->assertStringContainsString('@property string $email', $fileContent);
+
+        // should be able to create instance normally
+        $this->assertNotNull((new EmailFixture()));
     }
 
     public function testCommandWillRunAndWriteToFileReplaceOldPhpDoc()
@@ -66,5 +69,8 @@ class EloquentDocsGeneratorCommandTest extends TestCase
         $this->assertStringContainsString('@property string $zone', $fileContent);
         $this->assertStringContainsString('@property string $address', $fileContent);
         $this->assertStringNotContainsString('Here will be replaced', $fileContent);
+
+        // should be able to create instance normally
+        $this->assertNotNull((new UserDetailFixture()));
     }
 }

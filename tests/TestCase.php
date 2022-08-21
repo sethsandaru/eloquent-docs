@@ -61,5 +61,12 @@ abstract class TestCase extends BaseTestCase
             $blueprint->foreignId('user_id');
             $blueprint->string('email');
         });
+
+        Schema::create('user_details', function (Blueprint $blueprint) {
+            $blueprint->id();
+            $blueprint->foreignId('user_id');
+            $blueprint->string('address');
+            $blueprint->string('zone');
+        });
     }
 }
