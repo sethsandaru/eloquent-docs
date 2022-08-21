@@ -27,7 +27,7 @@ jobs:
           run: |
             php -v
             composer install --no-interaction
-            touch database.sqlite
+            touch eloquentdocs.sqlite
             mv .env.sqlite .env
 
       -   name: PHPUnit tests
