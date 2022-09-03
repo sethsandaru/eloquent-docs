@@ -41,6 +41,7 @@ Laravel auto-discovery will automatically do the magic for you. So you don't hav
 ```bash
 php artisan eloquent:phpdoc App\Models\User # view only
 php artisan eloquent:phpdoc App\Models\User --write # view & write to file
+php artisan eloquent:phpdoc App\Models\User --short-class # new option - use short class instead of full namespace path
 ```
 
 Result:
