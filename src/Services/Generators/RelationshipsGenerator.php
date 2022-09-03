@@ -45,7 +45,7 @@ class RelationshipsGenerator implements PhpDocGeneratorContract
                 '%s* @property-read %s%s %s',
                 "\n",
                 $relatedClassName,
-                $isManyRelation ? '[]|\Illuminate\Support\Collection' : '|null',
+                $isManyRelation ? '[]|\Illuminate\Database\Eloquent\Collection' : '|null',
                 '$' . $relationship['name']
             );
         }
