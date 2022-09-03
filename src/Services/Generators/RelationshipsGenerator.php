@@ -24,10 +24,11 @@ class RelationshipsGenerator implements PhpDocGeneratorContract
         'morphedByMany',
     ];
 
-    public function generate(Model $model): string
+    public function generate(Model $model, array $options = []): string
     {
         $phpDocStr = "\n*\n* === Relationships ===";
         $relationships = $this->getRelations($model);
+        $isUseShortClass = $options['useShortClass'] ?? false;
 
         if ($relationships->isEmpty()) {
             return '';
@@ -36,11 +37,15 @@ class RelationshipsGenerator implements PhpDocGeneratorContract
         foreach ($relationships as $relationship) {
             $isManyRelation = Str::contains($relationship['returnType'], 'Many', true);
 
+            $relatedClassName = $isUseShortClass
+                ? class_basename($relationship['related'])
+                : '\\' . $relationship['related'];
+
             $phpDocStr .= sprintf(
                 '%s* @property-read %s%s %s',
                 "\n",
-                '\\' .$relationship['related'],
-                $isManyRelation ? '[]|\Illuminate\Support\Collection' : '|null',
+                $relatedClassName,
+                $isManyRelation ? '[]|\Illuminate\Database\Eloquent\Collection' : '|null',
                 '$' . $relationship['name']
             );
         }

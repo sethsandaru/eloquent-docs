@@ -16,7 +16,7 @@ use Symfony\Component\Process\Process;
 #[AsCommand(name: 'eloquent:phpdoc')]
 class EloquentDocsGeneratorCommand extends Command
 {
-    protected $signature = 'eloquent:phpdoc {model} {--write}';
+    protected $signature = 'eloquent:phpdoc {model} {--write} {--short-class}';
     protected $description = '[SethPhat/EloquentDocs] Generate PHPDoc scope for your Eloquent Model';
 
     private Composer $composer;
@@ -48,6 +48,9 @@ class EloquentDocsGeneratorCommand extends Command
         $shouldWrite = (bool) $this->option('write');
 
         $generatedDocs = $generatePhpDocService->setModel(new $modelClass())
+            ->setOptions([
+                'useShortClass' => (bool) $this->option('short-class'),
+            ])
             ->generate();
 
         $this->info('====== Start PHPDOC scope of ' . $modelClass);
@@ -78,6 +81,8 @@ class EloquentDocsGeneratorCommand extends Command
      * @return void
      *
      * @throws \Symfony\Component\Process\Exception\ProcessSignaledException
+     *
+     * @codeCoverageIgnore Can't be covered so better to ignore
      */
     protected function installDependencies()
     {
