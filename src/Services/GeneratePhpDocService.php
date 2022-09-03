@@ -21,6 +21,8 @@ class GeneratePhpDocService
 
     protected Model $model;
 
+    protected array $options = [];
+
     public function __construct(protected Application $laravel)
     {
     }
@@ -32,6 +34,18 @@ class GeneratePhpDocService
         return $this;
     }
 
+    public function setOptions(array $options): self
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * Generate phpDoc
+     *
+     * @return string
+     */
     public function generate(): string
     {
         $phpDocStr = '/**';
@@ -42,7 +56,7 @@ class GeneratePhpDocService
              */
             $generator = $this->laravel->make($generatorClass);
 
-            $phpDocStr .= $generator->generate($this->model);
+            $phpDocStr .= $generator->generate($this->model, $this->options);
         }
 
         $phpDocStr .= "\n*/";

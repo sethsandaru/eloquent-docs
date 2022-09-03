@@ -18,7 +18,7 @@ class ColumnsGenerator implements PhpDocGeneratorContract
         $this->schema = $databaseConnection->getDoctrineSchemaManager();
     }
 
-    public function generate(Model $model): string
+    public function generate(Model $model, array $options = []): string
     {
         $this->model = $model;
         $columns = $this->schema->listTableColumns($model->getTable());
@@ -59,7 +59,7 @@ class ColumnsGenerator implements PhpDocGeneratorContract
             // would be string if you don't add 'casts'
             'date', 'datetime', 'timestamp', 'time', 'year' => $this->hasDateCasting($columm->getName())
                 ? '\Carbon\Carbon'
-                : '\Carbon\Carbon|null',
+                : '\Carbon\Carbon|string',
 
             'char', 'string', 'varchar',
             'text', 'tinytext', 'mediumtext',

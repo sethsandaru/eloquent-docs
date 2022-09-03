@@ -18,7 +18,7 @@ class AccessorsGenerator implements PhpDocGeneratorContract
         self::TYPE_ATTRIBUTE => '%s* @property %s %s',
     ];
 
-    public function generate(Model $model): string
+    public function generate(Model $model, array $options = []): string
     {
         $phpDocStr = "\n*\n* === Accessors/Attributes ===";
 
@@ -26,6 +26,8 @@ class AccessorsGenerator implements PhpDocGeneratorContract
         if ($virtualAttributes->isEmpty()) {
             return '';
         }
+
+        $isUseShortClass = $options['useShortClass'] ?? false;
 
         foreach ($virtualAttributes as $virtualAttribute) {
             $template = static::TEMPLATES[$virtualAttribute['cast']];
@@ -35,10 +37,19 @@ class AccessorsGenerator implements PhpDocGeneratorContract
                 $template = static::TEMPLATES[static::TYPE_ACCESSOR];
             }
 
+            $returnType = $virtualAttribute['returnType'];
+            if (class_exists($returnType)) {
+                if ($isUseShortClass) {
+                    $returnType = class_basename($returnType) . '|null';
+                } else{
+                    $returnType = '\\' . $returnType . '|null';
+                }
+            }
+
             $phpDocStr .= sprintf(
                 $template,
                 "\n",
-                $virtualAttribute['returnType'],
+                $returnType,
                 '$' . $virtualAttribute['name']
             );
         }
