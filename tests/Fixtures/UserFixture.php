@@ -52,6 +52,11 @@ class UserFixture extends Model
         return 0;
     }
 
+    public function getLastEmailAttribute(): EmailFixture
+    {
+        return new EmailFixture();
+    }
+
     /**
      * Get the user's first name.
      *

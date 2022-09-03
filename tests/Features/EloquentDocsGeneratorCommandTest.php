@@ -25,13 +25,26 @@ class EloquentDocsGeneratorCommandTest extends TestCase
             ->expectsOutputToContain('@property object|\stdClass $additional_payload')
             ->expectsOutputToContain('@property \Illuminate\Support\Collection $external_data')
             ->expectsOutputToContain('=== Relationships ===')
-            ->expectsOutputToContain('@property-read \SethPhat\EloquentDocs\Tests\Fixtures\EmailFixture[]|\Illuminate\Support\Collection $emails')
+            ->expectsOutputToContain('@property-read \SethPhat\EloquentDocs\Tests\Fixtures\EmailFixture[]|\Illuminate\Database\Eloquent\Collection $emails')
             ->expectsOutputToContain('@property-read \SethPhat\EloquentDocs\Tests\Fixtures\UserDetailFixture|null $userDetail')
             ->expectsOutputToContain('=== Accessors/Attributes ===')
             ->expectsOutputToContain('@property-read string $full_name')
             ->expectsOutputToContain('@property-read int $total_salary')
             ->expectsOutputToContain('@property mixed $first_name')
             ->expectsOutputToContain('@property-read mixed $last_name')
+            ->assertSuccessful()
+            ->execute();
+    }
+
+    public function testCommandWillRunAndShowUpThePhpDocsUseShortHandClassName()
+    {
+        $this->artisan('eloquent:phpdoc', [
+            'model' => UserFixture::class,
+            '--short-class' => 1,
+        ])
+            ->expectsOutputToContain('@property-read EmailFixture[]|\Illuminate\Database\Eloquent\Collection $emails')
+            ->expectsOutputToContain('@property-read UserDetailFixture|null $userDetail')
+            ->expectsOutputToContain('@property-read EmailFixture|null $last_email')
             ->assertSuccessful()
             ->execute();
     }
