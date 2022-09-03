@@ -59,7 +59,7 @@ class ColumnsGenerator implements PhpDocGeneratorContract
             // would be string if you don't add 'casts'
             'date', 'datetime', 'timestamp', 'time', 'year' => $this->hasDateCasting($columm->getName())
                 ? '\Carbon\Carbon'
-                : '\Carbon\Carbon|string',
+                : 'string',
 
             'char', 'string', 'varchar',
             'text', 'tinytext', 'mediumtext',
