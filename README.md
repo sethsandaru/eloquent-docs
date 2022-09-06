@@ -64,7 +64,7 @@ Result:
 * @property \Carbon\Carbon|null $updated_at
 *
 * === Relationships ===
-* @property-read \App\Models\Emails[]|\Illuminate\Support\Collection|null $emails
+* @property-read \App\Models\Emails[]|\Illuminate\Database\Eloquent\Collection|null $emails
 * @property-read \App\Models\UserDetails|null $userDetail
 *
 * === Accessors/Attributes ===
