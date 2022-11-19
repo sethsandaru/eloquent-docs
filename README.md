@@ -25,7 +25,6 @@ And, welcome to Eloquent phpDoc Generator, which going to help you to achieve th
 ## Requirements
 - PHP 8+ (yes it is 2022, PHP8 is superfast)
 - Laravel 9 (tested)
-- Laravel 8 (untested but very likely work without any issues)
 
 ## Install
 Install as dev-dependencies is enough, since you are only going to use this command on `local/development` env.
