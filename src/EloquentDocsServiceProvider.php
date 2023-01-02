@@ -15,10 +15,12 @@ class EloquentDocsServiceProvider extends ServiceProvider
                 EloquentDocsGeneratorCommand::class,
             ]);
 
-            DB::connection()
-                ->getDoctrineConnection()
-                ->getDatabasePlatform()
-                ->registerDoctrineTypeMapping('enum', 'string');
+            if (interface_exists('Doctrine\DBAL\Driver')) {
+                DB::connection()
+                    ->getDoctrineConnection()
+                    ->getDatabasePlatform()
+                    ->registerDoctrineTypeMapping('enum', 'string');
+            }
         }
     }
 }
