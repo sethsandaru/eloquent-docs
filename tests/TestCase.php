@@ -73,6 +73,7 @@ abstract class TestCase extends BaseTestCase
             $blueprint->json('payload')->nullable();
             $blueprint->json('additional_payload');
             $blueprint->json('external_data');
+            $blueprint->enum('gender', ['F', 'M', 'O']);
             $blueprint->timestamps();
             $blueprint->softDeletes();
         });

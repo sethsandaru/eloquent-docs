@@ -24,6 +24,7 @@ class EloquentDocsGeneratorCommandTest extends TestCase
             ->expectsOutputToContain('@property array|null $payload')
             ->expectsOutputToContain('@property object|\stdClass $additional_payload')
             ->expectsOutputToContain('@property \Illuminate\Support\Collection $external_data')
+            ->expectsOutputToContain('@property string $gender')
             ->expectsOutputToContain('=== Relationships ===')
             ->expectsOutputToContain('@property-read \SethPhat\EloquentDocs\Tests\Fixtures\EmailFixture[]|\Illuminate\Database\Eloquent\Collection $emails')
             ->expectsOutputToContain('@property-read \SethPhat\EloquentDocs\Tests\Fixtures\UserDetailFixture|null $userDetail')
