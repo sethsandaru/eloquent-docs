@@ -96,8 +96,15 @@ For this case, EloquentPhpDoc will always return `mixed`
 - v1.0.0
   - First version
   - View & Update phpDoc for a single Model at a time
-- v1.1.0 (planned)
-  - Bulk replace by namespace
+- v1.1.0
+  - `--short-class`
+  - Fixed some issues
+- v1.1.1
+  - Fixed issue when generating a table that has `enum` column
+- v1.1.2
+  - Fixed issue when first-time install the library that made Laravel discovery went wrong.
+- v1.2.0 (in development)
+  - Bulk generating from `--path=`
 
 ## Contribute to the library
 
