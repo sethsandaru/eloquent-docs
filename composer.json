@@ -5,7 +5,7 @@
     "type": "library",
     "require": {
         "php": "^8",
-        "laravel/framework": "10^|^9|^8"
+        "laravel/framework": "^10|^9|^8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.20",

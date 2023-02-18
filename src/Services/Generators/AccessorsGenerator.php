@@ -14,8 +14,8 @@ class AccessorsGenerator implements PhpDocGeneratorContract
     protected const TYPE_ATTRIBUTE = 'attribute';
 
     protected const TEMPLATES = [
-        self::TYPE_ACCESSOR => '%s* @property-read %s %s',
-        self::TYPE_ATTRIBUTE => '%s* @property %s %s',
+        self::TYPE_ACCESSOR => '%s * @property-read %s %s',
+        self::TYPE_ATTRIBUTE => '%s * @property %s %s',
     ];
 
     public function generate(Model $model, array $options = []): string
