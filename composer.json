@@ -1,11 +1,11 @@
 {
     "name": "sethphat/eloquent-docs",
-    "version": "1.1.2",
+    "version": "1.1.4",
     "description": "Generate PHPDoc scope for your Eloquent models",
     "type": "library",
     "require": {
         "php": "^8",
-        "laravel/framework": "^9|^8"
+        "laravel/framework": "10^|^9|^8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.20",

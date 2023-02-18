@@ -1,0 +1,42 @@
+name: Build on specific PHP & Laravel versions
+on:
+  pull_request:
+    branches:
+      - 'main'
+    types: [ opened, synchronize, reopened, ready_for_review ]
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            php: [ '8.1', '8.2' ]
+            laravel: [ '^8', '^9', '^10' ]
+    steps:
+      -   uses: actions/checkout@v2
+          if: success()
+
+      -   name: Setup PHP with coverage driver
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ matrix.php }}
+            coverage: pcov
+
+      -   name: Setup
+          if: success()
+          run: |
+            php -v
+            composer install --no-interaction
+            composer require laravel/framework ${{ matrix.laravel }}
+            touch coverage.xml
+            mv .env.mysql .env
+            sudo service mysql start
+            mysql -uroot -proot -e "CREATE DATABASE eloquentdocs;"
+
+      -   name: PHPUnit tests
+          if: success()
+          run: |
+            composer test
