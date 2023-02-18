@@ -42,7 +42,7 @@ class RelationshipsGenerator implements PhpDocGeneratorContract
                 : '\\' . $relationship['related'];
 
             $phpDocStr .= sprintf(
-                '%s* @property-read %s%s %s',
+                '%s * @property-read %s%s %s',
                 "\n",
                 $relatedClassName,
                 $isManyRelation ? '[]|\Illuminate\Database\Eloquent\Collection' : '|null',
