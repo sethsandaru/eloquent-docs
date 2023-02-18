@@ -30,7 +30,7 @@ jobs:
           run: |
             php -v
             composer install --no-interaction
-            composer require laravel/framework ${{ matrix.laravel }}
+            composer require laravel/framework ${{ matrix.laravel }} -W
             touch coverage.xml
             mv .env.mysql .env
             sudo service mysql start
