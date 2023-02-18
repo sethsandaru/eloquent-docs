@@ -71,6 +71,13 @@ jobs:
           command: composer require orchestra/testbench:^8 --dev --no-interaction --no-update
         if: matrix.laravel == '^10'
 
+      - name: Install dependencies
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer update --prefer-stable --prefer-dist --no-interaction --no-progress
+
       -   name: Setup
           if: success()
           run: |
