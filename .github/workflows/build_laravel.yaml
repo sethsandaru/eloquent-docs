@@ -45,7 +45,7 @@ jobs:
         with:
           timeout_minutes: 5
           max_attempts: 5
-          command: composer require laravel/framework:${matrix.laravel} --no-interaction --no-update
+          command: composer require laravel/framework:${{ matrix.laravel }} --no-interaction --no-update
 
       -   name: Setup
           if: success()
