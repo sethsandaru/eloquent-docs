@@ -5,6 +5,7 @@
 [![Build and test [MYSQL]](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_mysql.yaml/badge.svg?branch=main)](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_mysql.yaml)
 [![Build and test [SQLite]](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_sqlite.yaml/badge.svg?branch=main)](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_sqlite.yaml)
 [![Build and test [PostgreSQL]](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_postgresql.yaml/badge.svg?branch=main)](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_postgresql.yaml)
+[![Build on specific PHP & Laravel versions](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_laravel.yaml/badge.svg)](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_laravel.yaml)
 
 Quickly generate the phpDoc for your Eloquent Model. Make your Eloquent super friendly with IDEs (eg PHPStorm).
 
@@ -22,9 +23,9 @@ And, welcome to Eloquent phpDoc Generator, which going to help you to achieve th
 - Model relationships
 - Model attributes/accessors
 
-## Requirements
-- PHP 8+ (yes it is 2022, PHP8 is superfast)
-- Laravel 9 (tested)
+## Available For / Requirements
+- PHP 8.1 / 8.2
+- Laravel 9 / 10
 
 ## Install
 Install as dev-dependencies is enough, since you are only going to use this command on `local/development` env.
@@ -33,7 +34,7 @@ Install as dev-dependencies is enough, since you are only going to use this comm
 composer require sethphat/eloquent-docs --dev
 ```
 
-Laravel auto-discovery will automatically do the magic for you. So you don't have to worry 😉.
+Laravel auto-discovery will automatically do the magic for you.
 
 ## Use the command
 
@@ -103,6 +104,11 @@ For this case, EloquentPhpDoc will always return `mixed`
   - Fixed issue when generating a table that has `enum` column
 - v1.1.2
   - Fixed issue when first-time install the library that made Laravel discovery went wrong.
+- v1.1.3 & v1.1.4
+  - Improved the indents
+  - Supported Laravel 10
+  - Deprecated Laravel 8
+  - Deprecated PHP 8.0
 - v1.2.0 (in development)
   - Bulk generating from `--path=`
 
@@ -110,7 +116,7 @@ For this case, EloquentPhpDoc will always return `mixed`
 
 Feel free to fork this library and sending a PR here.
 
-Note: all the contributions need to follow PSR-12 and add unit testing.
+Note: all the contributions need to follow PSR-12 and cover everything under unit testing.
 
 ## LICENSE
 
