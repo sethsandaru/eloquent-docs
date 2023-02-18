@@ -1,7 +1,8 @@
 # Laravel Eloquent phpDoc Generator
 
 [![codecov](https://codecov.io/gh/sethsandaru/eloquent-docs/branch/main/graph/badge.svg?token=7KWW0SKF9P)](https://codecov.io/gh/sethsandaru/eloquent-docs)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/sethsandaru/eloquent-docs)
+[![Latest Stable Version](http://poser.pugx.org/sethphat/eloquent-docs/v)](https://packagist.org/packages/sethphat/eloquent-docs)
+[![Total Downloads](http://poser.pugx.org/sethphat/eloquent-docs/downloads)](https://packagist.org/packages/sethphat/eloquent-docs)
 [![Build and test [MYSQL]](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_mysql.yaml/badge.svg?branch=main)](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_mysql.yaml)
 [![Build and test [SQLite]](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_sqlite.yaml/badge.svg?branch=main)](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_sqlite.yaml)
 [![Build and test [PostgreSQL]](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_postgresql.yaml/badge.svg?branch=main)](https://github.com/sethsandaru/eloquent-docs/actions/workflows/build_postgresql.yaml)
