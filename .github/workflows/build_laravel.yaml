@@ -47,11 +47,34 @@ jobs:
           max_attempts: 5
           command: composer require laravel/framework:${{ matrix.laravel }} --no-interaction --no-update
 
+      - name: Set Testbench Version for Laravel ^8
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer require orchestra/testbench:^6 --dev --no-interaction --no-update
+        if: matrix.laravel == '^8'
+
+      - name: Set Testbench Version for Laravel ^9
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer require orchestra/testbench:^7 --dev --no-interaction --no-update
+        if: matrix.laravel == '^9'
+
+      - name: Set Testbench Version for Laravel ^10
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer require orchestra/testbench:^8 --dev --no-interaction --no-update
+        if: matrix.laravel == '^10'
+
       -   name: Setup
           if: success()
           run: |
             php -v
-            composer update --prefer-stable --prefer-dist --no-interaction --no-progress
             touch coverage.xml
             mv .env.mysql .env
             sudo service mysql start
