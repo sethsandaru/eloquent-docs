@@ -87,4 +87,24 @@ class EloquentDocsGeneratorCommandTest extends TestCase
         // should be able to create instance normally
         $this->assertNotNull((new UserDetailFixture()));
     }
+
+    public function testCommandReturnsErrorOnClassNotFound()
+    {
+        $this->artisan('eloquent:phpdoc', [
+            'model' => 'FakeClass/From/SethPhat',
+            '--write' => 1,
+        ])
+            ->expectsOutputToContain("doesn't exists.")
+            ->assertFailed();
+    }
+
+    public function testCommandReturnsErrorOnClassNotEloquent()
+    {
+        $this->artisan('eloquent:phpdoc', [
+            'model' => 'stdClass',
+            '--write' => 1,
+        ])
+            ->expectsOutputToContain('is not an Eloquent')
+            ->assertFailed();
+    }
 }
