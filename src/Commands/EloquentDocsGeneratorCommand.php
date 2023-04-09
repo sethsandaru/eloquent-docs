@@ -18,8 +18,7 @@ use Symfony\Component\Process\Process;
 class EloquentDocsGeneratorCommand extends Command
 {
     protected $signature = 'eloquent:phpdoc
-                            {model? : The model class}
-                            {location? : The location of classes} 
+                            {model : The model class}
                             {--write : Write the new phpDoc for the class (Force-write)} 
                             {--short-class : Use the short classname (without full path) in phpDoc block}';
     protected $description = '[SethPhat/EloquentDocs] Generate PHPDoc scope for your Eloquent Model';
@@ -42,12 +41,10 @@ class EloquentDocsGeneratorCommand extends Command
 
             return 0;
         }
-
+        
         $modelClass = $this->argument('model');
         if (!class_exists($modelClass)) {
-            $this->error("Class $modelClass doesn't exists.");
-
-            return 1;
+            return $this->error("Class $modelClass doesn't exists.") || 1;
         }
 
         $model = app($modelClass);
