@@ -3,6 +3,7 @@
 namespace SethPhat\EloquentDocs\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
@@ -16,7 +17,11 @@ use Symfony\Component\Process\Process;
 #[AsCommand(name: 'eloquent:phpdoc')]
 class EloquentDocsGeneratorCommand extends Command
 {
-    protected $signature = 'eloquent:phpdoc {model} {--write} {--short-class}';
+    protected $signature = 'eloquent:phpdoc
+                            {model? : The model class}
+                            {location? : The location of classes} 
+                            {--write : Write the new phpDoc for the class (Force-write)} 
+                            {--short-class : Use the short classname (without full path) in phpDoc block}';
     protected $description = '[SethPhat/EloquentDocs] Generate PHPDoc scope for your Eloquent Model';
 
     private Composer $composer;
@@ -25,7 +30,7 @@ class EloquentDocsGeneratorCommand extends Command
         Composer $composer,
         GeneratePhpDocService $generatePhpDocService,
         Filesystem $filesystem
-    ) {
+    ): int {
         $this->composer = $composer;
 
         if (!interface_exists('Doctrine\DBAL\Driver')) {
@@ -45,9 +50,14 @@ class EloquentDocsGeneratorCommand extends Command
             return 1;
         }
 
+        $model = app($modelClass);
+        if (!($model instanceof Model)) {
+            return $this->error("Class $modelClass is not an Eloquent.") || 1;
+        }
+
         $shouldWrite = (bool) $this->option('write');
 
-        $generatedDocs = $generatePhpDocService->setModel(new $modelClass())
+        $generatedDocs = $generatePhpDocService->setModel($model)
             ->setOptions([
                 'useShortClass' => (bool) $this->option('short-class'),
             ])
@@ -69,8 +79,7 @@ class EloquentDocsGeneratorCommand extends Command
             );
         }
 
-        $this->info('Thank you for using SethPhat/EloquentDocs!');
-
+        $this->info('Thank you for using EloquentDocs!');
 
         return 0;
     }
