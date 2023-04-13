@@ -21,7 +21,7 @@ class EloquentDocsGeneratorCommand extends Command
                             {model : The model class}
                             {--write : Write the new phpDoc for the class (Force-write)} 
                             {--short-class : Use the short classname (without full path) in phpDoc block}';
-    protected $description = '[SethPhat/EloquentDocs] Generate PHPDoc scope for your Eloquent Model';
+    protected $description = '[EloquentDocs] Generate PHPDoc scope for your Eloquent Model';
 
     private Composer $composer;
 
