@@ -61,6 +61,7 @@ class EloquentDocsGeneratorCommand extends Command
 
         $this->info('====== Start PHPDOC scope of ' . $modelClass);
         $lines = explode("\n", $generatedDocs);
+
         foreach ($lines as $line) {
             $this->info($line);
         }
