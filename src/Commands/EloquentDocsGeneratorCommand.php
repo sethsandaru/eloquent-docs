@@ -21,22 +21,21 @@ class EloquentDocsGeneratorCommand extends Command
                             {model : The model class}
                             {--write : Write the new phpDoc for the class (Force-write)} 
                             {--short-class : Use the short classname (without full path) in phpDoc block}';
-    protected $description = '[SethPhat/EloquentDocs] Generate PHPDoc scope for your Eloquent Model';
+    protected $description = '[EloquentDocs] Generate PHPDoc scope for your Eloquent Model';
 
-    private Composer $composer;
+    protected Composer $composer;
 
     public function handle(
         Composer $composer,
         GeneratePhpDocService $generatePhpDocService,
         Filesystem $filesystem
     ): int {
-        $this->composer = $composer;
-
         if (!interface_exists('Doctrine\DBAL\Driver')) {
             if (!$this->components->confirm('Create model with phpDoc properties requires requires the Doctrine DBAL (doctrine/dbal) package. Would you like to install it?')) {
                 return 1;
             }
 
+            $this->composer = $composer;
             $this->installDependencies();
 
             return 0;
@@ -62,6 +61,7 @@ class EloquentDocsGeneratorCommand extends Command
 
         $this->info('====== Start PHPDOC scope of ' . $modelClass);
         $lines = explode("\n", $generatedDocs);
+
         foreach ($lines as $line) {
             $this->info($line);
         }
@@ -90,7 +90,7 @@ class EloquentDocsGeneratorCommand extends Command
      *
      * @codeCoverageIgnore Can't be covered so better to ignore
      */
-    protected function installDependencies()
+    protected function installDependencies(): void
     {
         $command = collect($this->composer->findComposer())
             ->push('require doctrine/dbal')
@@ -115,14 +115,14 @@ class EloquentDocsGeneratorCommand extends Command
         }
     }
 
-    private function getClassInfo(string $className): array
+    protected function getClassInfo(string $className): array
     {
         $reflectorClass = new ReflectionClass($className);
 
         return [$reflectorClass->getFileName(), $reflectorClass->getShortName()];
     }
 
-    private function writePhpDoc(Filesystem $filesystem, string $modelClass, string $phpDocContent): void
+    protected function writePhpDoc(Filesystem $filesystem, string $modelClass, string $phpDocContent): void
     {
         [$filePath, $shortClassName] = $this->getClassInfo($modelClass);
         $fileContent = $filesystem->get($filePath);

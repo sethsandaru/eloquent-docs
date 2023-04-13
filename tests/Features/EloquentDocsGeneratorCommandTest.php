@@ -29,10 +29,10 @@ class EloquentDocsGeneratorCommandTest extends TestCase
             ->expectsOutputToContain('@property-read \SethPhat\EloquentDocs\Tests\Fixtures\EmailFixture[]|\Illuminate\Database\Eloquent\Collection $emails')
             ->expectsOutputToContain('@property-read \SethPhat\EloquentDocs\Tests\Fixtures\UserDetailFixture|null $userDetail')
             ->expectsOutputToContain('=== Accessors/Attributes ===')
-            ->expectsOutputToContain('@property-read string $full_name')
-            ->expectsOutputToContain('@property-read int $total_salary')
-            ->expectsOutputToContain('@property mixed $first_name')
-            ->expectsOutputToContain('@property-read mixed $last_name')
+            ->expectsOutputToContain('@property-read string $fullName')
+            ->expectsOutputToContain('@property-read int $totalSalary')
+            ->expectsOutputToContain('@property mixed $firstName')
+            ->expectsOutputToContain('@property-read mixed $lastName')
             ->assertSuccessful()
             ->execute();
     }
@@ -45,7 +45,7 @@ class EloquentDocsGeneratorCommandTest extends TestCase
         ])
             ->expectsOutputToContain('@property-read EmailFixture[]|\Illuminate\Database\Eloquent\Collection $emails')
             ->expectsOutputToContain('@property-read UserDetailFixture|null $userDetail')
-            ->expectsOutputToContain('@property-read EmailFixture|null $last_email')
+            ->expectsOutputToContain('@property-read EmailFixture|null $lastEmail')
             ->assertSuccessful()
             ->execute();
     }
