@@ -40,9 +40,12 @@ Laravel auto-discovery will automatically do the magic for you.
 ## Use the command
 
 ```bash
-php artisan eloquent:phpdoc App\Models\User # view only
-php artisan eloquent:phpdoc App\Models\User --write # view & write to file
-php artisan eloquent:phpdoc App\Models\User --short-class # new option - use short class instead of full namespace path
+php artisan eloquent:phpdoc "App\Models\User" # view only
+php artisan eloquent:phpdoc "App\Models\User" --write # view & write to file
+php artisan eloquent:phpdoc "App\Models\User" --short-class # new option - use short class instead of full namespace path
+
+# from v1.2.0
+php artisan eloquent:bulk-phpdoc "app/Models/*.php" # bulk generation (force write mode)
 ```
 
 Result:
@@ -79,7 +82,7 @@ Result:
 */
 ====== End PHPDOC scope of App\Models\User
 Wrote phpDoc scope to /<my-path>/app/Models/User.php
-Thank you for using SethPhat/EloquentDocs!
+Thank you for using EloquentDocs!
 ```
 
 </details>
@@ -110,8 +113,10 @@ For this case, EloquentPhpDoc will always return `mixed`
   - Supported Laravel 10
   - Deprecated Laravel 8
   - Deprecated PHP 8.0
-- v1.2.0 (in development)
-  - Bulk generating from `--path=`
+- v1.2.0
+  - New command to bulk generate from a given model path.
+    - `php artisan eloquent:bulk-phpdoc "app/Models/*.php"`
+  - Fixed an issue where accessors/attributes being generated as snake_case. Should be camelCase.
 
 ## Contribute to the library
 
@@ -126,4 +131,4 @@ MIT License
 ## Made by
 
 - [Seth Phat](https://github.com/sethsandaru)
-- (... contributors?)
+- And contributors
