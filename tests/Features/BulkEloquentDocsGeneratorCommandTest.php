@@ -19,5 +19,7 @@ class BulkEloquentDocsGeneratorCommandTest extends TestCase
             ->expectsOutputToContain('Generated & Saved for:')
             ->expectsOutputToContain('Generated EloquentDocs for 3 model file(s)')
             ->assertSuccessful();
+
+        // the generation & storing actually tested in EloquentDocsGeneratorCommandTest, no need to re-assert the same here.
     }
 }

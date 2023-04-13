@@ -50,7 +50,7 @@ class AccessorsGenerator implements PhpDocGeneratorContract
                 $template,
                 "\n",
                 $returnType,
-                '$' . $virtualAttribute['name']
+                '$' . Str::camel($virtualAttribute['name'])
             );
         }
 
