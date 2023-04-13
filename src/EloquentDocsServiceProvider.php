@@ -4,6 +4,7 @@ namespace SethPhat\EloquentDocs;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
+use SethPhat\EloquentDocs\Commands\BulkEloquentDocsGeneratorCommand;
 use SethPhat\EloquentDocs\Commands\EloquentDocsGeneratorCommand;
 
 class EloquentDocsServiceProvider extends ServiceProvider
@@ -13,6 +14,7 @@ class EloquentDocsServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 EloquentDocsGeneratorCommand::class,
+                BulkEloquentDocsGeneratorCommand::class,
             ]);
 
             if (interface_exists('Doctrine\DBAL\Driver')) {
