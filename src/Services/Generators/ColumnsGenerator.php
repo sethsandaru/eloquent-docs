@@ -6,7 +6,6 @@ use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Column;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
-use SethPhat\EloquentDocs\DynamicConfigs\EloquentDocs;
 
 class ColumnsGenerator implements PhpDocGeneratorContract
 {
