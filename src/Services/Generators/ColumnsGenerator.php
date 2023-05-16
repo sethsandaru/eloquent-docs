@@ -6,6 +6,7 @@ use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Column;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
+use SethPhat\EloquentDocs\DynamicConfigs\EloquentDocs;
 
 class ColumnsGenerator implements PhpDocGeneratorContract
 {
@@ -43,35 +44,36 @@ class ColumnsGenerator implements PhpDocGeneratorContract
     /**
      * Resolve from DB type to PHP type
      *
-     * @param Column $columm
+     * @param Column $column
      * @return string
      */
-    protected function resolveColumnType(Column $columm): string
+    protected function resolveColumnType(Column $column): string
     {
-        $type = match (strtolower($columm->getType()->getName())) {
-            'int', 'tinyint', 'smallint',
-            'mediumint', 'bigint', 'integer', 'bit' => 'int',
+        $columnType = strtolower($column->getType()->getName());
 
+        $type = match ($columnType) {
+            'int', 'smallint', 'tinyint',
+            'mediumint', 'bigint', 'integer' => 'int',
             'float', 'double', 'decimal', 'dec' => 'float',
 
             'bool', 'boolean' => 'bool',
 
             // would be string if you don't add 'casts'
-            'date', 'datetime', 'timestamp', 'time', 'year' => $this->hasDateCasting($columm->getName())
+            'date', 'datetime', 'timestamp', 'time', 'year' => $this->hasDateCasting($column->getName())
                 ? '\Carbon\Carbon'
                 : 'string',
 
             'char', 'string', 'varchar',
             'text', 'tinytext', 'mediumtext',
             'longtext', 'enum', 'binary',
-            'varbinary', 'set', 'json', 'jsonb' => $this->getJsonCastType($columm->getName()),
+            'varbinary', 'set', 'json', 'jsonb' => $this->getJsonCastType($column->getName()),
             // ^ because sqlite doesn't have json, they will use `text` but Eloquent can parse text to particular cast
 
             // would be string if you don't add 'casts', default to array
             default => 'mixed',
         };
 
-        if (!$columm->getNotnull()) {
+        if (!$column->getNotnull()) {
             $type .= '|null';
         }
 
