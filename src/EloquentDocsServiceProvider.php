@@ -9,6 +9,14 @@ use SethPhat\EloquentDocs\Commands\EloquentDocsGeneratorCommand;
 
 class EloquentDocsServiceProvider extends ServiceProvider
 {
+    /**
+     * DB type => Doctrine Type manual mapping
+     */
+    protected const DB_DOCTRINE_TYPES_MAP = [
+        'enum' => 'string',
+        'bit' => 'string',
+    ];
+
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
@@ -18,10 +26,13 @@ class EloquentDocsServiceProvider extends ServiceProvider
             ]);
 
             if (interface_exists('Doctrine\DBAL\Driver')) {
-                DB::connection()
+                $dbPlatform = DB::connection()
                     ->getDoctrineConnection()
-                    ->getDatabasePlatform()
-                    ->registerDoctrineTypeMapping('enum', 'string');
+                    ->getDatabasePlatform();
+
+                foreach (static::DB_DOCTRINE_TYPES_MAP as $dbType => $doctrineType) {
+                    $dbPlatform->registerDoctrineTypeMapping($dbType, $doctrineType);
+                }
             }
         }
     }
