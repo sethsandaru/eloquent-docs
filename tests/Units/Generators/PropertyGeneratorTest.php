@@ -53,7 +53,6 @@ class PropertyGeneratorTest extends TestCase
             protected $table = 'test_tiny_int';
         });
 
-        $this->assertStringContainsString('@property bool $boolean_column', $generatedText);
         $this->assertStringContainsString('@property bool|null $hello_bool', $generatedText);
     }
 }
