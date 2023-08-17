@@ -34,7 +34,7 @@ class ColumnsGenerator implements PhpDocGeneratorContract
                 "\n",
                 $this->resolveColumnType($column),
                 '$' . $column->getName(),
-				$column->getComment(),
+                $column->getComment(),
             );
         }
 
