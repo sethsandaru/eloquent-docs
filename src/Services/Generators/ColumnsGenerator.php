@@ -53,7 +53,7 @@ class ColumnsGenerator implements PhpDocGeneratorContract
         $type = match ($columnType) {
             'int', 'smallint', 'tinyint',
             'mediumint', 'bigint', 'integer' => 'int',
-            'float', 'double', 'decimal', 'dec' => 'float',
+            'float', 'double', 'decimal', 'dec', 'numeric' => 'float',
 
             'bool', 'boolean' => 'bool',
 
