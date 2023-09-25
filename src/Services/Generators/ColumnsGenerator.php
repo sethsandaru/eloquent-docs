@@ -30,10 +30,11 @@ class ColumnsGenerator implements PhpDocGeneratorContract
         // columns
         foreach ($columns as $column) {
             $phpDocStr .= sprintf(
-                '%s * @property %s %s',
+                '%s * @property %s %s %s',
                 "\n",
                 $this->resolveColumnType($column),
-                '$' . $column->getName()
+                '$' . $column->getName(),
+                $column->getComment(),
             );
         }
 
