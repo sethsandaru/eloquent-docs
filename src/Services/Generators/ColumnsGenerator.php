@@ -6,15 +6,18 @@ use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Column;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
+use ReflectionClass;
 
 class ColumnsGenerator implements PhpDocGeneratorContract
 {
+
     protected AbstractSchemaManager $schema;
     protected Model $model;
 
     public function __construct(
         Connection $databaseConnection
-    ) {
+    )
+    {
         $this->schema = $databaseConnection->getDoctrineSchemaManager();
     }
 
@@ -51,27 +54,34 @@ class ColumnsGenerator implements PhpDocGeneratorContract
     {
         $columnType = strtolower($column->getType()->getName());
 
-        $type = match ($columnType) {
-            'int', 'smallint', 'tinyint',
-            'mediumint', 'bigint', 'integer' => 'int',
-            'float', 'double', 'decimal', 'dec' => 'float',
+        $cast = $this->model->getCasts()[$column->getName()] ?? null;
+        if (class_exists($cast) && (new ReflectionClass($cast))->isEnum()) {
+            $type = "\\${cast}";
+        }
 
-            'bool', 'boolean' => 'bool',
+        if (!isset($type)) {
+            $type = match ($columnType) {
+                'int', 'smallint', 'tinyint',
+                'mediumint', 'bigint', 'integer' => 'int',
+                'float', 'double', 'decimal', 'dec' => 'float',
 
-            // would be string if you don't add 'casts'
-            'date', 'datetime', 'timestamp', 'time', 'year' => $this->hasDateCasting($column->getName())
-                ? '\Carbon\Carbon'
-                : 'string',
+                'bool', 'boolean' => 'bool',
 
-            'char', 'string', 'varchar',
-            'text', 'tinytext', 'mediumtext',
-            'longtext', 'enum', 'binary',
-            'varbinary', 'set', 'json', 'jsonb' => $this->getJsonCastType($column->getName()),
-            // ^ because sqlite doesn't have json, they will use `text` but Eloquent can parse text to particular cast
+                // would be string if you don't add 'casts'
+                'date', 'datetime', 'timestamp', 'time', 'year' => $this->hasDateCasting($column->getName())
+                    ? '\Carbon\Carbon'
+                    : 'string',
 
-            // would be string if you don't add 'casts', default to array
-            default => 'mixed',
-        };
+                'char', 'string', 'varchar',
+                'text', 'tinytext', 'mediumtext',
+                'longtext', 'enum', 'binary',
+                'varbinary', 'set', 'json', 'jsonb' => $this->getJsonCastType($column->getName()),
+                // ^ because sqlite doesn't have json, they will use `text` but Eloquent can parse text to particular cast
+
+                // would be string if you don't add 'casts', default to array
+                default => 'mixed',
+            };
+        }
 
         if (!$column->getNotnull()) {
             $type .= '|null';
@@ -105,4 +115,5 @@ class ColumnsGenerator implements PhpDocGeneratorContract
 
         return 'string';
     }
+
 }
