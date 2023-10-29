@@ -18,6 +18,7 @@ class BulkEloquentDocsGeneratorCommandTest extends TestCase
         $this->artisan('eloquent:bulk-phpdoc "tests/Fixtures/BulkFixtures/*.php"')
             ->expectsOutputToContain('Generated & Saved for:')
             ->expectsOutputToContain('Generated EloquentDocs for 3 model file(s)')
+            ->doesntExpectOutputToContain('BaseModel')
             ->assertSuccessful();
 
         // the generation & storing actually tested in EloquentDocsGeneratorCommandTest, no need to re-assert the same here.
