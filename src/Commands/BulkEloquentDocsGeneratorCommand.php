@@ -76,10 +76,15 @@ class BulkEloquentDocsGeneratorCommand extends EloquentDocsGeneratorCommand
             ->map(function (string $file) {
                 $className = $this->getFullyQualifiedClassName($file);
 
+                $initializedModel = rescue(
+                    fn () => app()->make($className),
+                    fn () => null
+                );
+
                 return [
                     'modelClass' => $className,
                     'modelFilePath' => $file,
-                    'modelInstance' => app($className),
+                    'modelInstance' => $initializedModel,
                 ];
             })
             ->filter(fn ($model) => $model['modelInstance'] instanceof Model)
