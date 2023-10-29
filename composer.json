@@ -1,6 +1,6 @@
 {
     "name": "sethphat/eloquent-docs",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "description": "Generate PHPDoc scope for your Eloquent models",
     "type": "library",
     "require": {
