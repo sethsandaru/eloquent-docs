@@ -20,12 +20,12 @@ class ColumnsGenerator implements PhpDocGeneratorContract
     {
         $this->model = $model;
         $columns = $this->schema->listTableColumns($model->getTable());
-        $phpDocStr = "\n*\n* === Columns ===";
         if (empty($columns)) {
             return '';
         }
 
         // columns
+        $phpDocStr = "\n*\n* === Columns ===";
         foreach ($columns as $column) {
             $phpDocStr .= sprintf(
                 '%s * @property %s %s',

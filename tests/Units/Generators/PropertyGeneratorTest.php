@@ -27,6 +27,10 @@ class PropertyGeneratorTest extends TestCase
 
     public function testBitColumnReturnsString()
     {
+        if (config('database.default') === 'sqlite') {
+            $this->markTestSkipped('SQLite does not have bit');
+        }
+
         DB::unprepared("
             CREATE TABLE test_bit_table(
                 this_is_bit BIT(1) NOT NULL
@@ -48,6 +52,7 @@ class PropertyGeneratorTest extends TestCase
             $table->boolean('hello_bool')->nullable();
         });
 
+        dd('aaa');
         $columnGenerator = app(ColumnsGenerator::class);
         $generatedText = $columnGenerator->generate(new class extends Model {
             protected $table = 'test_tiny_int';
@@ -60,7 +65,6 @@ class PropertyGeneratorTest extends TestCase
     {
         if (env('DB_CONNECTION') !== 'pgsql') {
             $this->markTestSkipped('only available for pgsql');
-            return;
         }
 
         DB::unprepared("
