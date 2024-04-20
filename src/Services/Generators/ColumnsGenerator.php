@@ -2,6 +2,8 @@
 
 namespace SethPhat\EloquentDocs\Services\Generators;
 
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Column;
 use Illuminate\Database\Eloquent\Model;
@@ -49,27 +51,25 @@ class ColumnsGenerator implements PhpDocGeneratorContract
         $columnType = strtolower($column->getType()->getName());
 
         $type = match ($columnType) {
-            'tinyint' => $this->hasBoolCasting($column->getName()) ? 'bool' : 'int',
-
-            'int', 'smallint',
-            'mediumint', 'bigint', 'integer' => 'int',
+            'int', 'smallint', 'tinyint',
+            'mediumint', 'bigint', 'integer' => $this->hasBoolCasting($column->getName())
+                ? 'bool'
+                : 'int',
 
             'float', 'double', 'decimal', 'dec', 'numeric' => 'float',
 
             'bool', 'boolean' => 'bool',
 
             // would be string if you don't add 'casts'
-            'date', 'datetime', 'timestamp', 'time', 'year' => $this->hasDateCasting($column->getName())
-                ? '\Carbon\Carbon'
-                : 'string',
+            'date', 'datetime', 'timestamp', 'time', 'year' => $this->getDateCasting($column->getName()),
 
             'char', 'string', 'varchar',
             'text', 'tinytext', 'mediumtext',
             'longtext', 'enum', 'binary',
             'varbinary', 'set', 'json', 'jsonb' => $this->getJsonCastType($column->getName()),
             // ^ because sqlite doesn't have json, they will use `text` but Eloquent can parse text to particular cast
-
             // would be string if you don't add 'casts', default to array
+
             default => 'mixed',
         };
 
@@ -80,13 +80,19 @@ class ColumnsGenerator implements PhpDocGeneratorContract
         return $type;
     }
 
-    protected function hasDateCasting(string $column): bool
+    protected function getDateCasting(string $column): bool
     {
         if (in_array($column, ['created_at', 'updated_at', 'deleted_at'])) {
-            return true;
+            return Carbon::class;
         }
 
-        return $this->model->hasCast($column, ['date', 'datetime', 'immutable_date', 'immutable_datetime']);
+        if ($this->model->hasCast($column, ['immutable_date', 'immutable_datetime'])) {
+            return CarbonImmutable::class;
+        }
+
+        return $this->model->hasCast($column, ['date', 'datetime'])
+            ? Carbon::class
+            : 'string';
     }
 
     protected function hasBoolCasting(string $column): bool
