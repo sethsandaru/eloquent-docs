@@ -55,6 +55,10 @@ class PropertyGeneratorTest extends TestCase
         $columnGenerator = app(ColumnsGenerator::class);
         $generatedText = $columnGenerator->generate(new class extends Model {
             protected $table = 'test_tiny_int';
+
+            protected $casts = [
+                'boolean_column' => 'boolean',
+            ];
         });
 
         $this->assertStringContainsString('@property bool $boolean_column', $generatedText);
