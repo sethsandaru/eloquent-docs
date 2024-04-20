@@ -1,4 +1,4 @@
-name: Build and test [PostgreSQL]
+name: Build and test [PostgreSQL 15.x]
 on:
   pull_request:
     branches:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgresql:
-        image: postgres:14
+        image: postgres:15
         env:
           POSTGRES_DB: eloquentdocs
           POSTGRES_USER: root
@@ -23,13 +23,13 @@ jobs:
         options: --health-cmd=pg_isready --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      -   uses: actions/checkout@v2
+      -   uses: actions/checkout@v3
           if: success()
 
       -   name: Setup PHP with coverage driver
           uses: shivammathur/setup-php@v2
           with:
-            php-version: '8.1'
+            php-version: '8.3'
             extensions: pdo, pdo_pgsql
             coverage: none
 
