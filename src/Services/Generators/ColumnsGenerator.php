@@ -49,8 +49,11 @@ class ColumnsGenerator implements PhpDocGeneratorContract
         $columnType = strtolower($column->getType()->getName());
 
         $type = match ($columnType) {
-            'int', 'smallint', 'tinyint',
+            'tinyint' => $this->hasBoolCasting($column->getName()) ? 'bool' : 'int',
+
+            'int', 'smallint',
             'mediumint', 'bigint', 'integer' => 'int',
+
             'float', 'double', 'decimal', 'dec', 'numeric' => 'float',
 
             'bool', 'boolean' => 'bool',
@@ -84,6 +87,11 @@ class ColumnsGenerator implements PhpDocGeneratorContract
         }
 
         return $this->model->hasCast($column, ['date', 'datetime', 'immutable_date', 'immutable_datetime']);
+    }
+
+    protected function hasBoolCasting(string $column): bool
+    {
+        return $this->model->hasCast($column, ['bool', 'boolean']);
     }
 
     protected function getJsonCastType(string $column): string
