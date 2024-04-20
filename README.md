@@ -20,13 +20,14 @@ And, welcome to Eloquent phpDoc Generator, which going to help you to achieve th
 
 ## What will Eloquent phpDoc Generator will generate?
 - Table name
-- Table columns (with types)
+- Table columns (with correct types - including Casting types 😎)
 - Model relationships
 - Model attributes/accessors
 
 ## Available For / Requirements
-- PHP 8.1 / 8.2
-- Laravel 9 / 10
+
+- **v2.x**: Laravel 11, PHP 8.2+.
+- **v1.x**: Laravel 9/10, PHP 8.0, 8.1.
 
 ## Install
 Install as dev-dependencies is enough, since you are only going to use this command on `local/development` env.
@@ -87,15 +88,12 @@ Thank you for using EloquentDocs!
 
 </details>
 
-Note: if you haven't installed `doctrine/dbal` as your dev-dependency, 
-then once you trigger the command for the first time, it will help you to install the needful dependency
-
 ## Best practices
-- Use `$casts` in your model, in order to help EloquentPhpDoc generate better types for you (array, Carbon,...)
+- Use `$casts` in your model, in order to help EloquentPhpDoc generate better types for you (array, date, datetime,...)
 - For `get*Attribute` accessor, always declare the return type
 
-Note: Eloquent new `Attribute` class utilize the data via Closure, thus we can't declare any return type for any attributes.
-For this case, EloquentPhpDoc will always return `mixed`
+Note: for Eloquent new `Attribute` class utilize the data via Closure, making it impossible to acquire the return types. 
+For this case, EloquentDocs will always return `mixed`
 
 ## Release logs
 - v1.0.0
@@ -117,6 +115,11 @@ For this case, EloquentPhpDoc will always return `mixed`
   - New command to bulk generate from a given model path.
     - `php artisan eloquent:bulk-phpdoc "app/Models/*.php"`
   - Fixed an issue where accessors/attributes being generated as snake_case. Should be camelCase.
+- v2.0.0
+  - Supports Laravel 11 + PHP 8.2/8.3
+  - DBAL as required dependencies
+  - Better date/datetime parsing (Carbon & Carbon immutable)
+  - Better boolean parsing
 
 ## Contribute to the library
 
@@ -132,3 +135,15 @@ MIT License
 
 - [Seth Phat](https://github.com/sethsandaru)
 - And contributors
+
+## (Sponsered Content) Introducing RenderPDF.io - Render your PDF in seconds
+
+![RenderPDF.io](./.github/render-pdf-io.png)
+
+[RenderPDF.io](https://renderpdf.io) is a Render-PDF-as-a-Service that provides developer-friendly APIs
+to render your HTML content to modern PDFs file sin seconds 😎.
+
+All you have to do is get your API Key and send RenderPDF.io an API call 🚀, no infrastructure setup, no overhead and
+hassle-free integration 🔋.
+
+Get your free API Key today: [Sign Up to RenderPDF.io](https://renderpdf.io)

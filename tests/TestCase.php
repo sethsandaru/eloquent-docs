@@ -3,10 +3,11 @@
 namespace SethPhat\EloquentDocs\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use SethPhat\EloquentDocs\EloquentDocsServiceProvider;
-use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
+use SethPhat\EloquentDocs\Services\DoctrineManager;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -90,5 +91,11 @@ abstract class TestCase extends BaseTestCase
             $blueprint->string('address');
             $blueprint->string('zone');
         });
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        DoctrineManager::flush();
     }
 }

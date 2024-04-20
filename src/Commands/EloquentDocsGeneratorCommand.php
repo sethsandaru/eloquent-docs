@@ -8,11 +8,8 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
 use ReflectionClass;
-use RuntimeException;
 use SethPhat\EloquentDocs\Services\GeneratePhpDocService;
 use Symfony\Component\Console\Attribute\AsCommand;
-use Symfony\Component\Process\Exception\ProcessSignaledException;
-use Symfony\Component\Process\Process;
 
 #[AsCommand(name: 'eloquent:phpdoc')]
 class EloquentDocsGeneratorCommand extends Command
@@ -26,21 +23,9 @@ class EloquentDocsGeneratorCommand extends Command
     protected Composer $composer;
 
     public function handle(
-        Composer $composer,
         GeneratePhpDocService $generatePhpDocService,
         Filesystem $filesystem
     ): int {
-        if (!interface_exists('Doctrine\DBAL\Driver')) {
-            if (!$this->components->confirm('Create model with phpDoc properties requires requires the Doctrine DBAL (doctrine/dbal) package. Would you like to install it?')) {
-                return 1;
-            }
-
-            $this->composer = $composer;
-            $this->installDependencies();
-
-            return 0;
-        }
-        
         $modelClass = $this->argument('model');
         if (!class_exists($modelClass)) {
             return $this->error("Class $modelClass doesn't exists.") || 1;
@@ -79,40 +64,6 @@ class EloquentDocsGeneratorCommand extends Command
         $this->info('Thank you for using EloquentDocs!');
 
         return 0;
-    }
-
-    /**
-     * Install the command's dependencies.
-     *
-     * @return void
-     *
-     * @throws \Symfony\Component\Process\Exception\ProcessSignaledException
-     *
-     * @codeCoverageIgnore Can't be covered so better to ignore
-     */
-    protected function installDependencies(): void
-    {
-        $command = collect($this->composer->findComposer())
-            ->push('require doctrine/dbal')
-            ->implode(' ');
-
-        $process = Process::fromShellCommandline($command, null, null, null, null);
-
-        if ('\\' !== DIRECTORY_SEPARATOR && file_exists('/dev/tty') && is_readable('/dev/tty')) {
-            try {
-                $process->setTty(true);
-            } catch (RuntimeException $e) {
-                $this->components->warn($e->getMessage());
-            }
-        }
-
-        try {
-            $process->run(fn ($type, $line) => $this->output->write($line));
-        } catch (ProcessSignaledException $e) {
-            if (extension_loaded('pcntl') && $e->getSignal() !== SIGINT) {
-                throw $e;
-            }
-        }
     }
 
     protected function getClassInfo(string $className): array
