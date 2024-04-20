@@ -4,18 +4,16 @@ namespace SethPhat\EloquentDocs\Services\Generators;
 
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Column;
-use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
+use SethPhat\EloquentDocs\Services\DoctrineManager;
 
 class ColumnsGenerator implements PhpDocGeneratorContract
 {
     protected AbstractSchemaManager $schema;
     protected Model $model;
 
-    public function __construct(
-        Connection $databaseConnection
-    ) {
-        $this->schema = $databaseConnection->getDoctrineSchemaManager();
+    public function __construct() {
+        $this->schema = DoctrineManager::get()->createSchemaManager();
     }
 
     public function generate(Model $model, array $options = []): string

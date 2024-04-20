@@ -1,12 +1,12 @@
 <?php
 
-namespace SethPhat\EloquentDocs\Tests;
+namespace SethPhat\EloquentDocs\Tests\Units;
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use SethPhat\EloquentDocs\EloquentDocsServiceProvider;
-use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 
 abstract class TestCase extends BaseTestCase
 {

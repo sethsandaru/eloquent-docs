@@ -7,7 +7,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use SethPhat\EloquentDocs\Services\Generators\ColumnsGenerator;
-use SethPhat\EloquentDocs\Tests\TestCase;
+use SethPhat\EloquentDocs\Tests\Units\TestCase;
 
 class PropertyGeneratorTest extends TestCase
 {
