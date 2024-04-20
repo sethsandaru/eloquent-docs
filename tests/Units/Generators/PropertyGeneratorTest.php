@@ -52,7 +52,6 @@ class PropertyGeneratorTest extends TestCase
             $table->boolean('hello_bool')->nullable();
         });
 
-        dd('aaa');
         $columnGenerator = app(ColumnsGenerator::class);
         $generatedText = $columnGenerator->generate(new class extends Model {
             protected $table = 'test_tiny_int';
