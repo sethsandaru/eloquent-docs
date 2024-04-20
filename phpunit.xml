@@ -3,6 +3,7 @@
   <testsuites>
     <testsuite name="SethPhat Eloquent PhpDoc Test Suite">
       <directory suffix=".php">./tests/</directory>
+      <exclude>./tests/Fixtures/</exclude>
       <exclude>./tests/TestCase.php</exclude>
     </testsuite>
   </testsuites>
