@@ -54,4 +54,10 @@ class DoctrineManager
 
         return static::$connection = $connection;
     }
+
+    public static function flush(): void
+    {
+        static::$connection->close();
+        static::$connection = null;
+    }
 }
