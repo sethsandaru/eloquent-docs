@@ -26,21 +26,23 @@ class DoctrineManager
 
         /** @var string $defaultDb */
         $defaultDb = config('database.default');
+        /** @var string $driverName */
+        $driverName = config("database.connections.{$defaultDb}.driver");
 
-        $configs = match ($defaultDb) {
+        $configs = match ($driverName) {
             'mysql', 'pgsql' => [
                 'dbname' => config("database.connections.{$defaultDb}.database"),
                 'user' => config("database.connections.{$defaultDb}.username"),
                 'password' => config("database.connections.{$defaultDb}.password"),
                 'host' => config("database.connections.{$defaultDb}.host"),
                 'port' => config("database.connections.{$defaultDb}.port"),
-                'driver' => 'pdo_' . $defaultDb,
+                'driver' => 'pdo_' . $driverName,
             ],
             'sqlite' => [
-                'driver' => 'pdo_sqlite',
+                'driver' => 'pdo_' . $driverName,
                 'path' => config("database.connections.{$defaultDb}.database"),
             ],
-            default => throw new LogicException("EloquentDocs is not supporting '$defaultDb' database driver"),
+            default => throw new LogicException("EloquentDocs is not supporting '$driverName' database driver"),
         };
 
         $connection = DriverManager::getConnection($configs);
