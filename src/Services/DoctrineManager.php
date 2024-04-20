@@ -37,6 +37,7 @@ class DoctrineManager
                 'driver' => 'pdo_' . $defaultDb,
             ],
             'sqlite' => [
+                'driver' => 'pdo_sqlite',
                 'path' => config("database.connections.{$defaultDb}.database"),
             ],
             default => throw new LogicException("EloquentDocs is not supporting '$defaultDb' database driver"),
