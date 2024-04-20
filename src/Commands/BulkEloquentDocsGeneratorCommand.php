@@ -19,21 +19,9 @@ class BulkEloquentDocsGeneratorCommand extends EloquentDocsGeneratorCommand
     protected $description = '[EloquentDocs] Bulk Generate PHPDoc scope for your Eloquent Model';
 
     public function handle(
-        Composer $composer,
         GeneratePhpDocService $generatePhpDocService,
         Filesystem $filesystem
     ): int {
-        if (!interface_exists('Doctrine\DBAL\Driver')) {
-            if (!$this->components->confirm('Create model with phpDoc properties requires requires the Doctrine DBAL (doctrine/dbal) package. Would you like to install it?')) {
-                return 1;
-            }
-
-            $this->composer = $composer;
-            $this->installDependencies();
-
-            return 0;
-        }
-
         $models = $this->getModels();
         if ($models->isEmpty()) {
             return $this->error('No Eloquent Model found from the glob pattern') || 1;
