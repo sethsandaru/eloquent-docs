@@ -1,6 +1,6 @@
 <?php
 
-namespace SethPhat\EloquentDocs\Tests\Units;
+namespace SethPhat\EloquentDocs\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;

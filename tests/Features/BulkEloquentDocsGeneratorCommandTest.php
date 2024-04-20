@@ -2,7 +2,7 @@
 
 namespace SethPhat\EloquentDocs\Tests\Features;
 
-use SethPhat\EloquentDocs\Tests\Units\TestCase;
+use SethPhat\EloquentDocs\Tests\TestCase;
 
 class BulkEloquentDocsGeneratorCommandTest extends TestCase
 {

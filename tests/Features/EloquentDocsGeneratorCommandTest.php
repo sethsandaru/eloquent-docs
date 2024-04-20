@@ -5,7 +5,7 @@ namespace SethPhat\EloquentDocs\Tests\Features;
 use SethPhat\EloquentDocs\Tests\Fixtures\EmailFixture;
 use SethPhat\EloquentDocs\Tests\Fixtures\UserDetailFixture;
 use SethPhat\EloquentDocs\Tests\Fixtures\UserFixture;
-use SethPhat\EloquentDocs\Tests\Units\TestCase;
+use SethPhat\EloquentDocs\Tests\TestCase;
 
 class EloquentDocsGeneratorCommandTest extends TestCase
 {
