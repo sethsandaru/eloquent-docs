@@ -80,7 +80,7 @@ class ColumnsGenerator implements PhpDocGeneratorContract
         return $type;
     }
 
-    protected function getDateCasting(string $column): bool
+    protected function getDateCasting(string $column): string
     {
         if (in_array($column, ['created_at', 'updated_at', 'deleted_at'])) {
             return Carbon::class;
