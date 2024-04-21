@@ -138,7 +138,7 @@ MIT License
 
 ## (Sponsered Content) Introducing RenderPDF.io - Render your PDF in seconds
 
-![RenderPDF.io](./.github/render-pdf-io.png)
+![RenderPDF.io](https://github.com/shipsaas/docking/raw/main/.github/render-pdf-io.png)
 
 [RenderPDF.io](https://renderpdf.io) is a Render-PDF-as-a-Service that provides developer-friendly APIs
 to render your HTML content to modern PDFs file sin seconds 😎.
