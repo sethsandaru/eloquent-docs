@@ -1,7 +1,7 @@
 {
     "name": "sethphat/eloquent-docs",
-    "version": "2.0.0",
-    "description": "Generate PHPDoc scope for your Eloquent models",
+    "version": "2.0.1",
+    "description": "Generate PHPDoc scope for your Eloquent models (columns, accessors and more)",
     "type": "library",
     "require": {
         "php": "^8.2|^8.3",
