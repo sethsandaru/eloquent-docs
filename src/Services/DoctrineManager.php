@@ -30,13 +30,13 @@ class DoctrineManager
         $driverName = config("database.connections.{$defaultDb}.driver");
 
         $configs = match ($driverName) {
-            'mysql', 'pgsql' => [
+            'mysql', 'mariadb', 'pgsql' => [
                 'dbname' => config("database.connections.{$defaultDb}.database"),
                 'user' => config("database.connections.{$defaultDb}.username"),
                 'password' => config("database.connections.{$defaultDb}.password"),
                 'host' => config("database.connections.{$defaultDb}.host"),
                 'port' => config("database.connections.{$defaultDb}.port"),
-                'driver' => 'pdo_' . $driverName,
+                'driver' => 'pdo_' . ($driverName === 'mariadb' ? 'mysql' : $driverName),
             ],
             'sqlite' => [
                 'driver' => 'pdo_' . $driverName,
